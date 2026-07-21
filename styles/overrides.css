@@ -1,0 +1,14 @@
+/* Theme overrides that must survive `jac retheme` (which regenerates
+   global.css wholesale). Imported AFTER global.css in main.jac, so these
+   win the cascade. Keep this file tiny — broad theming belongs in retheme. */
+
+/* Deep orange accent (burnt orange, darker than the stock `orange` theme). */
+:root {
+    --primary: oklch(0.58 0.21 36);
+    --ring: oklch(0.58 0.21 36 / 0.4);
+}
+
+.dark {
+    --primary: oklch(0.66 0.205 40);
+    --ring: oklch(0.66 0.205 40 / 0.4);
+}
