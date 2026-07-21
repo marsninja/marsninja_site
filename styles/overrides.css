@@ -12,3 +12,13 @@
     --primary: oklch(0.66 0.205 40);
     --ring: oklch(0.66 0.205 40 / 0.4);
 }
+
+/* Darker code listings in dark mode (one-dark's stock #282c34 sits too close
+   to the card surface). Covers Pygments blocks and plain unhighlighted fences. */
+.dark .codehilite {
+    background: #1b1e24;
+}
+
+.dark .markdown-body pre {
+    background: #1b1e24;
+}
