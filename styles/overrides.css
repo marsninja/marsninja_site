@@ -2,15 +2,17 @@
    global.css wholesale). Imported AFTER global.css in main.jac, so these
    win the cascade. Keep this file tiny — broad theming belongs in retheme. */
 
-/* Deep orange accent (burnt orange, darker than the stock `orange` theme). */
+/* Deep blue accent: a step deeper than the stock `blue` theme in light mode,
+   and lifted in dark mode (the stock dark primary is too dark to read as an
+   accent on near-black surfaces). */
 :root {
-    --primary: oklch(0.58 0.21 36);
-    --ring: oklch(0.58 0.21 36 / 0.4);
+    --primary: oklch(0.45 0.23 264);
+    --ring: oklch(0.45 0.23 264 / 0.4);
 }
 
 .dark {
-    --primary: oklch(0.66 0.205 40);
-    --ring: oklch(0.66 0.205 40 / 0.4);
+    --primary: oklch(0.58 0.2 262);
+    --ring: oklch(0.58 0.2 262 / 0.4);
 }
 
 /* Darker code listings in dark mode (one-dark's stock #282c34 sits too close
