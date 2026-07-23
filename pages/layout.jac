@@ -1,7 +1,7 @@
 import from "@jac/runtime" { Outlet }
 import from ..components.SiteHeader { SiteHeader }
 
-def:pub layout() -> JsxElement {
+def:pub layout() -> JsxLayout {
     return <div className="min-h-screen bg-background text-foreground flex flex-col">
         <SiteHeader />
         <main className="flex-1 w-full max-w-3xl mx-auto px-4 sm:px-6">

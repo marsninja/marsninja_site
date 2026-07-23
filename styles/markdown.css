@@ -131,6 +131,65 @@
     background: transparent;
 }
 
+/* Mermaid diagrams — placeholders arrive as <pre class="mermaid"> holding the
+   diagram source; components/MarkdownContent.jac swaps in themed SVG and sets
+   data-rendered. Hidden until then so raw source never flashes. */
+.markdown-body pre.mermaid {
+    margin: 1.75rem 0;
+    padding: 1.5rem 1.25rem;
+    display: flex;
+    justify-content: center;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow-x: auto;
+    opacity: 0;
+    transition: opacity 250ms ease;
+}
+
+.markdown-body pre.mermaid[data-rendered] {
+    opacity: 1;
+}
+
+.markdown-body pre.mermaid[data-rendered="error"] {
+    justify-content: flex-start;
+    white-space: pre;
+    color: var(--muted-foreground);
+}
+
+.markdown-body pre.mermaid svg {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Video embeds — responsive 16:9 frame emitted by the blog service for
+   @[youtube](...) directives and bare YouTube URLs. */
+.markdown-body .video-embed {
+    margin: 1.75rem 0;
+}
+
+.markdown-body .video-embed .video-frame {
+    aspect-ratio: 16 / 9;
+    background: #000;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+}
+
+.markdown-body .video-embed iframe {
+    display: block;
+    width: 100%;
+    height: 100%;
+    border: 0;
+}
+
+.markdown-body .video-embed figcaption {
+    margin-top: 0.625rem;
+    text-align: center;
+    font-size: 0.875rem;
+    color: var(--muted-foreground);
+}
+
 /* Tables */
 .markdown-body table {
     width: 100%;

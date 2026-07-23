@@ -72,6 +72,42 @@ The client receives finished HTML and drops it into the page with Jac's
 `unsafe_html()` builtin — the `unsafe_` prefix is deliberate friction, and it's
 fine here because I wrote every byte of the content.
 
+## Diagrams and video are markdown too
+
+A blog about systems needs diagrams, and prose about a graph language
+deserves an actual graph. Posts carry both without leaving markdown. A
+fenced `mermaid` block:
+
+````markdown
+```mermaid
+flowchart LR
+    md[".md file"] --> blog["services/blog.jac"]
+    blog -->|"placeholder HTML"| mc["MarkdownContent.jac"]
+    mc -->|"mermaid.render()"| svg["theme-matched SVG"]
+```
+````
+
+renders as a live diagram. The server swaps the fence for a placeholder, and
+a small client component draws it with colors pulled from the site theme —
+flip dark mode and watch it redraw:
+
+```mermaid
+flowchart LR
+    md[".md file"] --> blog["services/blog.jac"]
+    blog -->|"placeholder HTML"| mc["MarkdownContent.jac"]
+    mc -->|"mermaid.render()"| svg["theme-matched SVG"]
+```
+
+Video is one line — a `@[youtube](...)` directive (or just a YouTube URL on
+its own line) becomes a responsive, lazy-loading embed served from
+`youtube-nocookie.com`, so reading a post never ships a tracking cookie:
+
+````markdown
+@[youtube](oHCo5Jg2zns "How Jac supersets Python")
+````
+
+@[youtube](oHCo5Jg2zns "How Jac supersets Python")
+
 ## The UI is shadcn, in Jac
 
 The frontend composes jac-shadcn primitives — `Card`, `Badge`, `Input`,

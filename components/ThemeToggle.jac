@@ -1,4 +1,5 @@
 import from .ui.button { Button }
+import from ..lib.theme { notify_theme_change }
 import from "@hugeicons/react" { HugeiconsIcon }
 import from "@hugeicons/core-free-icons" { Moon02Icon, Sun01Icon }
 
@@ -11,6 +12,7 @@ def:pub ThemeToggle() -> JsxElement {
         } else {
             document.documentElement.classList.remove("dark");
         }
+        notify_theme_change(d);
     }
 
     can with entry {

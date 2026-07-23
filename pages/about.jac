@@ -1,8 +1,9 @@
 sv import from ..services.blog { get_page, Post }
+import from ..components.MarkdownContent { MarkdownContent }
 import from ..components.ui.skeleton { Skeleton }
 import from ..components.ui.separator { Separator }
 
-def:pub page() -> JsxElement {
+def:pub page() -> JsxPage {
     has doc: Post | None = None;
     has loading: bool = True;
 
@@ -28,6 +29,6 @@ def:pub page() -> JsxElement {
     return <article className="py-12">
         <h1 className="text-3xl sm:text-4xl font-semibold tracking-tight">{d.meta.title}</h1>
         <Separator className="my-8" />
-        <div className="markdown-body">{unsafe_html(d.html)}</div>
+        <MarkdownContent html={d.html} />
     </article>;
 }

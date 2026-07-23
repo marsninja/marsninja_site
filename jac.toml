@@ -3,6 +3,11 @@ name = "marsninja_site"
 entry-point = "main.jac"
 kind = "web-app"
 
+# Live in the jaseci repo: compile with the checked-out compiler source
+# instead of the binary's bundled jaclang (see _jac_finder.py).
+[dev]
+jaclang_source = "../../jac"
+
 [jac-shadcn]
 style = "nova"
 baseColor = "neutral"
@@ -25,6 +30,7 @@ markdown = ">=3.5"
 Pygments = ">=2.17"
 
 [dependencies.npm]
+mermaid = "^11"
 "@hugeicons/react" = "*"
 "@hugeicons/core-free-icons" = "*"
 radix-ui = "*"

@@ -8,7 +8,7 @@ import from ..components.ui.empty { Empty, EmptyHeader, EmptyTitle, EmptyDescrip
 import from "@hugeicons/react" { HugeiconsIcon }
 import from "@hugeicons/core-free-icons" { Search01Icon }
 
-def:pub page() -> JsxElement {
+def:pub page() -> JsxPage {
     has posts: list[PostMeta] = [];
     has loading: bool = True;
     has query: str = "";

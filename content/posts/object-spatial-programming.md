@@ -47,6 +47,21 @@ with entry {
 }
 ```
 
+Grow the graph a little and the shape of the program becomes literal — this
+*is* the data model, the storage layout, and the walker's itinerary, all in
+one picture:
+
+```mermaid
+flowchart LR
+    R((root)) --> A["Person · Alice"]
+    A -->|Follows| B["Person · Bob"]
+    A -->|Follows| C["Person · Carol"]
+    B -->|Follows| D["Person · Dan"]
+```
+
+`CountReach` spawns at Alice and rides the `Follows` edges outward: four
+nodes seen, and not a single query written.
+
 ## Why bother?
 
 The claim is not that graphs are new — it's that making the graph *the program

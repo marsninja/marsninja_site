@@ -64,3 +64,8 @@ the filesystem or the network: typed, composable, and boring.
 
 Boring is the goal. The exciting phase of a technology ends exactly when it
 becomes a language feature.
+
+There's a video treatment of the same idea — what it takes for a language to
+know what an agent *is*:
+
+@[youtube](jk1OUyNnHpk "Agentic AI with Jac: a programming language that knows what an agent is")

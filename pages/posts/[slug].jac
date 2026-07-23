@@ -1,12 +1,13 @@
 sv import from ...services.blog { get_post, Post }
 import from "@jac/runtime" { Link, useParams }
+import from ...components.MarkdownContent { MarkdownContent }
 import from ...components.ui.badge { Badge }
 import from ...components.ui.separator { Separator }
 import from ...components.ui.skeleton { Skeleton }
 import from "@hugeicons/react" { HugeiconsIcon }
 import from "@hugeicons/core-free-icons" { ArrowLeft01Icon }
 
-def:pub page() -> JsxElement {
+def:pub page() -> JsxPage {
     has post: Post | None = None;
     has loading: bool = True;
 
@@ -63,6 +64,6 @@ def:pub page() -> JsxElement {
             </div>
         }}
         <Separator className="my-8" />
-        <div className="markdown-body">{unsafe_html(p.html)}</div>
+        <MarkdownContent html={p.html} />
     </article>;
 }

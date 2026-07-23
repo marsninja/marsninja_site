@@ -1,6 +1,6 @@
 import from "@jac/runtime" { Link }
 
-def:pub page() -> JsxElement {
+def:pub page() -> JsxPage {
     return <div className="py-24 text-center">
         <p className="text-sm font-mono text-muted-foreground">404</p>
         <h1 className="mt-2 text-3xl font-semibold">Page not found</h1>
