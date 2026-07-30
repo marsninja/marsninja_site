@@ -7,5 +7,5 @@ import ".styles.source.css";
 import ".styles.overrides.css";
 
 def:pub app(children: any) -> JsxElement {
-    return <>{children}</>;
+    <>{children}</>
 }

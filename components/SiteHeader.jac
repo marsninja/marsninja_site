@@ -4,19 +4,37 @@ import from .ThemeToggle { ThemeToggle }
 import from "@hugeicons/react" { HugeiconsIcon }
 import from "@hugeicons/core-free-icons" { GithubIcon }
 
-def:pub SiteHeader() -> JsxElement {
+def:pub SiteHeader -> JsxElement {
     location = useLocation();
     path = location.pathname;
 
     base_link = "text-sm transition-colors hover:text-foreground ";
-    posts_cls = base_link + ("text-foreground font-medium" if path == "/" or path.startswith("/posts") else "text-muted-foreground");
-    about_cls = base_link + ("text-foreground font-medium" if path == "/about" else "text-muted-foreground");
-    source_cls = base_link + ("text-foreground font-medium" if path.startswith("/source") else "text-muted-foreground");
+    posts_cls = base_link
+    + (
+        "text-foreground font-medium"
+            if path == "/" or path.startswith("/posts")
+            else "text-muted-foreground"
+    );
+    about_cls = base_link
+    + ("text-foreground font-medium" if path == "/about" else "text-muted-foreground");
+    source_cls = base_link
+    + (
+        "text-foreground font-medium"
+            if path.startswith("/source")
+            else "text-muted-foreground"
+    );
 
-    return <header className="sticky top-0 z-40 border-b border-border/60 bg-background/80 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-        <div className="max-w-3xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
+    <header
+        className="sticky top-0 z-40 border-b border-border/60 bg-background/80 backdrop-blur supports-[backdrop-filter]:bg-background/60"
+    >
+        <div
+            className="max-w-3xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between"
+        >
             <div className="flex items-center gap-8">
-                <Link to="/" className="flex items-center gap-2 font-semibold tracking-tight">
+                <Link
+                    to="/"
+                    className="flex items-center gap-2 font-semibold tracking-tight"
+                >
                     <img
                         src="/static/assets/ninjaavatar.png"
                         alt=""
@@ -36,12 +54,18 @@ def:pub SiteHeader() -> JsxElement {
                     target="_blank"
                     rel="noreferrer"
                     aria-label="GitHub"
-                    className={buttonVariants().call(None, {"variant": "ghost", "size": "icon"})}
+                    className={buttonVariants().call(
+                        None, {"variant": "ghost", "size": "icon"}
+                    )}
                 >
-                    <HugeiconsIcon icon={GithubIcon} strokeWidth={2} className="size-5" />
+                    <HugeiconsIcon
+                        icon={GithubIcon}
+                        strokeWidth={2}
+                        className="size-5"
+                    />
                 </a>
-                <ThemeToggle />
+                <ThemeToggle/>
             </div>
         </div>
-    </header>;
+    </header>
 }

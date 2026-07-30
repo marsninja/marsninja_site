@@ -17,32 +17,31 @@ import from html { escape }
 import from pathlib { Path }
 import from datetime { datetime }
 
-glob POSTS_DIR: str = os.path.join("content", "posts");
-glob PAGES_DIR: str = "content";
-glob WORDS_PER_MINUTE: int = 200;
-
-glob YT_DIRECTIVE_RE: str = r'^@\[youtube\]\(\s*([^\s")]+)(?:\s+"([^"]*)")?\s*\)$';
-glob YT_URL_LINE_RE: str = r"^https?://(?:www\.)?(?:youtube\.com/\S+|youtu\.be/\S+)$";
-glob YT_ID_EXTRACT_RE: str = r"(?:youtube\.com/(?:watch\?(?:[^#\s]*&)?v=|embed/|shorts/|live/)|youtu\.be/)([A-Za-z0-9_-]{6,20})";
+glob POSTS_DIR: str = os.path.join("content", "posts"),
+     PAGES_DIR: str = "content",
+     WORDS_PER_MINUTE: int = 200,
+     YT_DIRECTIVE_RE: str = r'^@\[youtube\]\(\s*([^\s")]+)(?:\s+"([^"]*)")?\s*\)$',
+     YT_URL_LINE_RE: str = r"^https?://(?:www\.)?(?:youtube\.com/\S+|youtu\.be/\S+)$",
+     YT_ID_EXTRACT_RE: str = r"(?:youtube\.com/(?:watch\?(?:[^#\s]*&)?v=|embed/|shorts/|live/)|youtu\.be/)([A-Za-z0-9_-]{6,20})";
 
 obj PostMeta {
-    has slug: str;
-    has title: str;
-    has date: str;
-    has display_date: str;
-    has tags: list[str];
-    has summary: str;
-    has reading_minutes: int;
+    has slug: str,
+        title: str,
+        date: str,
+        display_date: str,
+        tags: list[str],
+        summary: str,
+        reading_minutes: int;
 }
 
 obj Post {
-    has meta: PostMeta;
-    has html: str;
+    has meta: PostMeta,
+        html: str;
 }
 
 obj ParsedDoc {
-    has fm: dict[str, str];
-    has body: str;
+    has fm: dict[str, str],
+        body: str;
 }
 
 def _parse_frontmatter(raw: str) -> ParsedDoc {
@@ -123,7 +122,8 @@ def _preprocess_media(text: str) -> str {
         stripped = line.strip();
         if fence_ch {
             out.append(line);
-            if stripped and stripped[0] == fence_ch
+            if stripped
+            and stripped[0] == fence_ch
             and _fence_run(stripped, fence_ch) >= fence_len {
                 fence_ch = "";
                 fence_len = 0;
@@ -139,7 +139,8 @@ def _preprocess_media(text: str) -> str {
                 i += 1;
                 while i < len(lines) {
                     inner = lines[i].strip();
-                    if inner and inner[0] == stripped[0]
+                    if inner
+                    and inner[0] == stripped[0]
                     and _fence_run(inner, stripped[0]) >= open_len {
                         i += 1;
                         break;
@@ -215,18 +216,27 @@ def _load_doc(path: str, slug: str) -> Post | None {
         title=doc.fm.get("title", slug),
         date=date,
         display_date=_display_date(date),
-        tags=[t.strip() for t in tags_raw.split(",") if t.strip()],
+        tags=[
+            t.strip()
+            for t in tags_raw.split(",")
+            if t.strip()
+        ],
         summary=doc.fm.get("summary", ""),
-        reading_minutes=max(1, (len(doc.body.split()) + WORDS_PER_MINUTE - 1) // WORDS_PER_MINUTE)
+        reading_minutes=max(
+            1, (len(doc.body.split()) + WORDS_PER_MINUTE - 1) // WORDS_PER_MINUTE
+        )
     );
     return Post(meta=meta, html=_md_to_html(doc.body));
 }
 
 def _safe_slug(slug: str) -> bool {
-    return bool(slug) and ("/" not in slug) and ("\\" not in slug) and (".." not in slug);
+    return bool(slug)
+    and ("/" not in slug)
+    and ("\\" not in slug)
+    and (".." not in slug);
 }
 
-def:pub list_posts() -> list[PostMeta] {
+def:pub list_posts -> list[PostMeta] {
     posts: list[PostMeta] = [];
     if not os.path.isdir(POSTS_DIR) {
         return posts;

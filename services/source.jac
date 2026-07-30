@@ -13,84 +13,113 @@ import from pygments.lexer { RegexLexer }
 import from pygments.lexers { get_lexer_for_filename }
 import from pygments.lexers.special { TextLexer }
 import from pygments.token {
-    Comment, Keyword, Name, Number, Operator, Punctuation, String, Whitespace
+    Comment,
+    Keyword,
+    Name,
+    Number,
+    Operator,
+    Punctuation,
+    String,
+    Whitespace
 }
 
-glob EXCLUDE_DIRS: set = {".git", ".jac", "node_modules", "__pycache__", "assets"};
-glob ALLOW_EXT: set = {".jac", ".toml", ".css", ".md", ".py", ".json"};
-glob ALLOW_FILES: set = {".gitignore"};
+glob EXCLUDE_DIRS: set = {".git", ".jac", "node_modules", "__pycache__", "assets"},
+     ALLOW_EXT: set = {".jac", ".toml", ".css", ".md", ".py", ".json"},
+     ALLOW_FILES: set = {".gitignore"};
 
 class JacLexer(RegexLexer) {
-    static has name: str = "Jac";
-    static has aliases: list = ["jac"];
-    static has filenames: list = ["*.jac"];
-    static has tokens: dict = {
-        "root": [
-            (r"#\*[\s\S]*?\*#", Comment.Multiline),
-            (r"#.*?$", Comment.Single),
-            (r'"""[\s\S]*?"""', String.Doc),
-            (r"'''[\s\S]*?'''", String.Doc),
-            (r'[fF]?"(\\.|[^"\\\n])*"', String.Double),
-            (r"[fF]?'(\\.|[^'\\\n])*'", String.Single),
-            (r"@\w+", Name.Decorator),
-            (r":(pub|priv|protect)\b", Keyword.Pseudo),
-            (r"\b(node|edge|walker|obj|class|enum|impl|sem|test)\b", Keyword.Declaration),
-            (r"\b(cl|sv|na)\b(?=\s+(import|def|\{))", Keyword.Namespace),
-            (r"\b(def|can|has|let|glob|with|entry|exit|import|from|include|as|"
-             r"return|report|visit|spawn|ignore|disengage|skip|revisit|if|elif|"
-             r"else|for|while|in|to|by|not|and|or|try|except|finally|raise|"
-             r"assert|del|match|case|switch|async|await|lambda|yield|global|"
-             r"nonlocal|break|continue|is|new|check)\b", Keyword),
-            (r"\b(root|self|here|super|init|postinit)\b", Name.Builtin.Pseudo),
-            (r"\b(True|False|None)\b", Keyword.Constant),
-            (r"\b(str|int|float|bool|bytes|list|dict|set|tuple|any|type|"
-             r"JsxElement|Callable|Ref|Generator)\b", Keyword.Type),
-            (r"\b(print|len|range|enumerate|sorted|reversed|zip|max|min|abs|"
-             r"sum|open|isinstance|jid|unsafe_html)\b", Name.Builtin),
-            (r"\b\d+\.\d+\b", Number.Float),
-            (r"\b\d+\b", Number.Integer),
-            (r"(\+\+>|<\+\+|-->|<--|\|>|<\||:=|->|=>)", Operator.Word),
-            (r"[-+*/%=<>!&|^~?@]+", Operator),
-            (r"[{}()\[\],;.:]", Punctuation),
-            (r"[A-Za-z_]\w*", Name),
-            (r"\s+", Whitespace),
-            (r".", Whitespace),
-        ],
-    };
+    static has name: str = "Jac",
+        aliases: list = ["jac"],
+        filenames: list = ["*.jac"],
+        tokens: dict = {
+            "root": [
+                (r"#\*[\s\S]*?\*#", Comment.Multiline),
+                (r"#.*?$", Comment.Single),
+                (r'"""[\s\S]*?"""', String.Doc),
+                (r"'''[\s\S]*?'''", String.Doc),
+                (r'[fF]?"(\\.|[^"\\\n])*"', String.Double),
+                (r"[fF]?'(\\.|[^'\\\n])*'", String.Single),
+                (r"@\w+", Name.Decorator),
+                (r":(pub|priv|protect)\b", Keyword.Pseudo),
+                (
+                    r"\b(node|edge|walker|obj|class|enum|impl|sem|test)\b",
+                    Keyword.Declaration
+                ),
+                (r"\b(cl|sv|na)\b(?=\s+(import|def|\{))", Keyword.Namespace),
+                (
+                    r"\b(def|can|has|let|glob|with|entry|exit|import|from|include|as|"
+                    r"return|report|visit|spawn|ignore|disengage|skip|revisit|if|elif|"
+                    r"else|for|while|in|to|by|not|and|or|try|except|finally|raise|"
+                    r"assert|del|match|case|switch|async|await|lambda|yield|global|"
+                    r"nonlocal|break|continue|is|new|check)\b",
+                    Keyword
+                ),
+                (r"\b(root|self|here|super|init|postinit)\b", Name.Builtin.Pseudo),
+                (r"\b(True|False|None)\b", Keyword.Constant),
+                (
+                    r"\b(str|int|float|bool|bytes|list|dict|set|tuple|any|type|"
+                    r"JsxElement|Callable|Ref|Generator)\b",
+                    Keyword.Type
+                ),
+                (
+                    r"\b(print|len|range|enumerate|sorted|reversed|zip|max|min|abs|"
+                    r"sum|open|isinstance|jid|unsafe_html)\b",
+                    Name.Builtin
+                ),
+                (r"\b\d+\.\d+\b", Number.Float),
+                (r"\b\d+\b", Number.Integer),
+                (r"(\+\+>|<\+\+|-->|<--|\|>|<\||:=|->|=>)", Operator.Word),
+                (r"[-+*/%=<>!&|^~?@]+", Operator),
+                (r"[{}()\[\],;.:]", Punctuation),
+                (r"[A-Za-z_]\w*", Name),
+                (r"\s+", Whitespace),
+                (r".", Whitespace),
+
+            ],
+
+        };
 }
 
 obj SourceFile {
-    has path: str;
-    has dir: str;
-    has name: str;
-    has language: str;
-    has size_bytes: int;
-    has lines: int;
+    has path: str,
+        dir: str,
+        name: str,
+        language: str,
+        size_bytes: int,
+        lines: int;
 }
 
 obj SourceView {
-    has path: str;
-    has language: str;
-    has size_bytes: int;
-    has lines: int;
-    has raw: str;
-    has html: str;
+    has path: str,
+        language: str,
+        size_bytes: int,
+        lines: int,
+        raw: str,
+        html: str;
 }
 
 def _language_of(name: str) -> str {
     ext = os.path.splitext(name)[1].lower();
     table = {
-        ".jac": "jac", ".toml": "toml", ".css": "css", ".md": "markdown",
-        ".py": "python", ".json": "json"
+        ".jac": "jac",
+        ".toml": "toml",
+        ".css": "css",
+        ".md": "markdown",
+        ".py": "python",
+        ".json": "json"
     };
     return table.get(ext, "text");
 }
 
-def _walk_sources() -> list[SourceFile] {
+def _walk_sources -> list[SourceFile] {
     proj_root = os.getcwd();
     found: list[SourceFile] = [];
     for (cur, dirnames, filenames) in os.walk(proj_root) {
-        kept = [d for d in sorted(dirnames) if not d.startswith(".") and d not in EXCLUDE_DIRS];
+        kept = [
+            d
+            for d in sorted(dirnames)
+            if not d.startswith(".") and d not in EXCLUDE_DIRS
+        ];
         dirnames.clear();
         dirnames.extend(kept);
         for fname in sorted(filenames) {
@@ -105,14 +134,16 @@ def _walk_sources() -> list[SourceFile] {
             } except Exception {
                 continue;
             }
-            found.append(SourceFile(
-                path=rel.replace(os.sep, "/"),
-                dir=os.path.dirname(rel).replace(os.sep, "/"),
-                name=fname,
-                language=_language_of(fname),
-                size_bytes=os.path.getsize(full),
-                lines=text.count("\n") + 1
-            ));
+            found.append(
+                SourceFile(
+                    path=rel.replace(os.sep, "/"),
+                    dir=os.path.dirname(rel).replace(os.sep, "/"),
+                    name=fname,
+                    language=_language_of(fname),
+                    size_bytes=os.path.getsize(full),
+                    lines=text.count("\n") + 1
+                )
+            );
         }
     }
     return sorted(found, key=_tree_order);
@@ -120,12 +151,7 @@ def _walk_sources() -> list[SourceFile] {
 
 def _tree_order(f: SourceFile) -> tuple {
     # Root files first (main.jac leading), then directories alphabetically.
-    return (
-        0 if f.dir == "" else 1,
-        f.dir,
-        0 if f.name == "main.jac" else 1,
-        f.name
-    );
+    return (0 if f.dir == "" else 1, f.dir, 0 if f.name == "main.jac" else 1, f.name);
 }
 
 def _pick_lexer(path: str, text: str) -> object {
@@ -139,7 +165,7 @@ def _pick_lexer(path: str, text: str) -> object {
     }
 }
 
-def:pub source_tree() -> list[SourceFile] {
+def:pub source_tree -> list[SourceFile] {
     return _walk_sources();
 }
 

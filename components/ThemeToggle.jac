@@ -3,7 +3,7 @@ import from ..lib.theme { notify_theme_change }
 import from "@hugeicons/react" { HugeiconsIcon }
 import from "@hugeicons/core-free-icons" { Moon02Icon, Sun01Icon }
 
-def:pub ThemeToggle() -> JsxElement {
+def:pub ThemeToggle -> JsxElement {
     has dark: bool = False;
 
     def apply_theme(d: bool) {
@@ -30,7 +30,16 @@ def:pub ThemeToggle() -> JsxElement {
         localStorage.setItem("theme", "dark" if next else "light");
     }
 
-    return <Button variant="ghost" size="icon" onClick={handle_toggle} aria-label="Toggle theme">
-        <HugeiconsIcon icon={Sun01Icon if dark else Moon02Icon} strokeWidth={2} className="size-5" />
-    </Button>;
+    <Button
+        variant="ghost"
+        size="icon"
+        onClick={handle_toggle}
+        aria-label="Toggle theme"
+    >
+        <HugeiconsIcon
+            icon={Sun01Icon if dark else Moon02Icon}
+            strokeWidth={2}
+            className="size-5"
+        />
+    </Button>
 }

@@ -8,10 +8,10 @@ import from ..components.ui.empty { Empty, EmptyHeader, EmptyTitle, EmptyDescrip
 import from "@hugeicons/react" { HugeiconsIcon }
 import from "@hugeicons/core-free-icons" { Search01Icon }
 
-def:pub page() -> JsxPage {
-    has posts: list[PostMeta] = [];
-    has loading: bool = True;
-    has query: str = "";
+def:pub page -> JsxPage {
+    has posts: list[PostMeta] = [],
+        loading: bool = True,
+        query: str = "";
 
     location = useLocation();
     nav = useNavigate();
@@ -46,24 +46,26 @@ def:pub page() -> JsxPage {
         }
     }
 
-    return <div className="flex flex-col">
+    <div className="flex flex-col">
         <section className="pt-14 pb-10">
-            <h1 className="flex items-center gap-4 text-4xl sm:text-5xl font-semibold tracking-tight">
+            <h1
+                className="flex items-center gap-4 text-4xl sm:text-5xl font-semibold tracking-tight"
+            >
                 <img
                     src="/static/assets/ninjaavatar.png"
                     alt="marsninja avatar"
                     className="size-12 sm:size-14 rounded-full ring-2 ring-primary/40 shadow-md"
                 />
-                <span className="bg-gradient-to-r from-primary to-foreground bg-clip-text text-transparent">
+                <span
+                    className="bg-gradient-to-r from-primary to-foreground bg-clip-text text-transparent"
+                >
                     marsninja
                 </span>
             </h1>
             <p className="mt-4 text-lg text-muted-foreground max-w-xl leading-relaxed">
-                Notes on programming languages, AI-native software, and the
-                systems underneath — written in markdown, served by Jac.
+                Notes on programming languages, AI-native software, and the systems underneath — written in markdown, served by Jac.
             </p>
         </section>
-
         <section className="flex flex-col gap-4 pb-8">
             <div className="relative">
                 <HugeiconsIcon
@@ -83,7 +85,9 @@ def:pub page() -> JsxPage {
                     {for t in all_tags {
                         <button
                             key={t}
-                            onClick={lambda { nav("/") if t == activeTag else nav("/?tag=" + t); }}
+                            onClick={lambda { nav("/")
+                                if t == activeTag
+                                else nav("/?tag=" + t); }}
                             className="cursor-pointer"
                         >
                             <Badge
@@ -95,21 +99,26 @@ def:pub page() -> JsxPage {
                         </button>
                     }}
                     {if activeTag {
-                        <button onClick={lambda { nav("/"); }} className="text-xs text-muted-foreground hover:text-foreground cursor-pointer ml-1">
+                        <button
+                            onClick={lambda { nav("/"); }}
+                            className="text-xs text-muted-foreground hover:text-foreground cursor-pointer ml-1"
+                        >
                             clear ✕
                         </button>
                     }}
                 </div>
             }}
         </section>
-
         <section className="flex flex-col gap-4">
             {if loading {
                 for i in range(3) {
-                    <div key={str(i)} className="rounded-xl border border-border p-6 flex flex-col gap-3">
-                        <Skeleton className="h-3 w-40" />
-                        <Skeleton className="h-6 w-3/4" />
-                        <Skeleton className="h-4 w-full" />
+                    <div
+                        key={str(i)}
+                        className="rounded-xl border border-border p-6 flex flex-col gap-3"
+                    >
+                        <Skeleton className="h-3 w-40"/>
+                        <Skeleton className="h-6 w-3/4"/>
+                        <Skeleton className="h-4 w-full"/>
                     </div>
                 }
             } elif len(filtered) == 0 {
@@ -123,9 +132,9 @@ def:pub page() -> JsxPage {
                 </Empty>
             } else {
                 for p in filtered {
-                    <PostCard key={p.slug} meta={p} />
+                    <PostCard key={p.slug} meta={p}/>
                 }
-            }}
+            }  }
         </section>
-    </div>;
+    </div>
 }

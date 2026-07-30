@@ -6,13 +6,12 @@ site's blue shadcn theme. Diagrams are redrawn whenever the theme flips
 (via lib/theme.jac); the original diagram source is kept in a data
 attribute so a redraw never depends on the previous render.
 """
-import from react { useRef }
+import from "react" { useRef }
 import from "mermaid" { default as mermaid }
 import from ..lib.theme { on_theme_change }
 
-glob FONT_STACK: str = "'Geist Variable', ui-sans-serif, system-ui, sans-serif";
-
-glob _seq: dict[str, int] = {"n": 0};
+glob FONT_STACK: str = "'Geist Variable', ui-sans-serif, system-ui, sans-serif",
+     _seq: dict[str, int] = {"n": 0};
 
 def _theme_vars(dark: bool) -> dict[str, any] {
     if dark {
@@ -78,13 +77,15 @@ async def _draw_all(container: any) {
         return;
     }
     dark = bool(document.documentElement.classList.contains("dark"));
-    mermaid.initialize({  # jac:ignore[E1032]
-        "startOnLoad": False,
-        "theme": "base",
-        "themeVariables": _theme_vars(dark),
-        "fontFamily": FONT_STACK,
-        "flowchart": {"curve": "basis"}
-    });
+    mermaid.initialize(
+        {  # jac:ignore[E1032]
+            "startOnLoad": False,
+            "theme": "base",
+            "themeVariables": _theme_vars(dark),
+            "fontFamily": FONT_STACK,
+            "flowchart": {"curve": "basis"}
+        }
+    );
     for i in range(len(blocks)) {
         block = blocks[i];
         src = block.getAttribute("data-mmd-src");
@@ -125,5 +126,5 @@ def:pub MarkdownContent(html: str) -> JsxElement {
         await _draw_all(containerRef.current);
     }
 
-    return <div ref={containerRef} className="markdown-body">{unsafe_html(html)}</div>;
+    <div ref={containerRef} className="markdown-body">{unsafe_html(html)}</div>
 }
