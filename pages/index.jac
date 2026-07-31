@@ -1,4 +1,4 @@
-sv import from ..services.blog { list_posts, PostMeta }
+import from ..services.blog { list_posts, PostMeta }
 import from "@jac/runtime" { useLocation, useNavigate }
 import from ..components.PostCard { PostCard }
 import from ..components.ui.input { Input }

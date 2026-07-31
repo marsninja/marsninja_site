@@ -1,4 +1,4 @@
-sv import from ..services.blog { get_page, Post }
+import from ..services.blog { get_page, Post }
 import from ..components.MarkdownContent { MarkdownContent }
 import from ..components.ui.skeleton { Skeleton }
 import from ..components.ui.separator { Separator }

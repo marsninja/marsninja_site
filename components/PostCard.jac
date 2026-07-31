@@ -1,4 +1,4 @@
-sv import from ..services.blog { PostMeta }
+import from ..services.blog { PostMeta }
 import from "@jac/runtime" { Link }
 import from .ui.card { Card, CardHeader, CardTitle, CardDescription, CardContent }
 import from .ui.badge { Badge }

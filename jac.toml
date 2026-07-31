@@ -53,3 +53,7 @@ description = "Notes on programming languages, AI-native software, and the syste
 author = "marsninja"
 theme_color = "#1d4ed8"
 icon = "/static/assets/ninjaavatar.png"
+
+[scale.microservices.routes]
+"blog" = "/blog"
+"source" = "/source"

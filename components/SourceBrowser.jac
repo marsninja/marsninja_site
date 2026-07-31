@@ -1,4 +1,4 @@
-sv import from ..services.source { source_tree, source_file, SourceFile, SourceView }
+import from ..services.source { source_tree, source_file, SourceFile, SourceView }
 import from "@jac/runtime" { useLocation, useNavigate }
 import from .ui.badge { Badge }
 import from .ui.button { Button }
@@ -178,27 +178,27 @@ def:pub SourceBrowser -> JsxElement {
                     <nav className="p-2 flex flex-col gap-0.5">
                         {for r in rows {
                             if r["kind"] == "dir"
-                            and not _any_collapsed(
-                                _parent_dir(r["path"] as str), collapsed
-                            ) {
+                                and not _any_collapsed(
+                                    _parent_dir(r["path"] as str), collapsed
+                                ) {
                                 <button
                                     key={"dir:" + (r["path"] as str)}
                                     onClick={lambda { toggle_dir(r["path"] as str); }}
                                     className="w-full flex items-center gap-1.5 pr-2 py-1 rounded-md text-[13px] font-medium text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors cursor-pointer"
                                     style={{
                                         "paddingLeft": str(12 * (r["depth"] as int) + 8)
-                                        + "px"
+                                            + "px"
                                     }}
                                 >
                                     <HugeiconsIcon
                                         icon={ArrowRight01Icon}
                                         strokeWidth={2}
                                         className={"size-3.5 shrink-0 transition-transform "
-                                        + (
-                                            ""
-                                                if collapsed[r["path"] as str]
-                                                else "rotate-90"
-                                        )}
+                                            + (
+                                                ""
+                                                    if collapsed[r["path"] as str]
+                                                    else "rotate-90"
+                                            )}
                                     />
                                     <HugeiconsIcon
                                         icon={Folder01Icon}
@@ -208,24 +208,24 @@ def:pub SourceBrowser -> JsxElement {
                                     <span className="truncate">{r["name"]}</span>
                                 </button>
                             } elif r["kind"] == "file"
-                            and not _any_collapsed(r["dir"] as str, collapsed) {
+                                and not _any_collapsed(r["dir"] as str, collapsed) {
                                 <button
                                     key={r["path"]}
                                     onClick={lambda { nav(
                                         "/source?f="
-                                        + encodeURIComponent(r["path"] as str)
+                                            + encodeURIComponent(r["path"] as str)
                                     ); }}
                                     className={"w-full flex items-center gap-2 pr-3 py-1.5 rounded-md text-sm text-left transition-colors cursor-pointer "
-                                    + (
-                                        "bg-accent text-foreground font-medium"
-                                            if r["path"] == selected
-                                            else "text-muted-foreground hover:text-foreground hover:bg-accent/50"
-                                    )}
+                                        + (
+                                            "bg-accent text-foreground font-medium"
+                                                if r["path"] == selected
+                                                else "text-muted-foreground hover:text-foreground hover:bg-accent/50"
+                                        )}
                                     style={{
                                         "paddingLeft": str(
                                             12 * (r["depth"] as int) + 14
                                         )
-                                        + "px"
+                                            + "px"
                                     }}
                                 >
                                     <span
@@ -267,8 +267,8 @@ def:pub SourceBrowser -> JsxElement {
                         {if view is not None {
                             <span className="text-xs font-mono text-muted-foreground">
                                 {str(view.lines)
-                                + " lines · "
-                                + _fmt_size(view.size_bytes)}
+                                    + " lines · "
+                                    + _fmt_size(view.size_bytes)}
                             </span>
                             <Badge variant="outline" className="font-mono">
                                 {view.language}
@@ -283,7 +283,7 @@ def:pub SourceBrowser -> JsxElement {
                                     icon={CopyCheckIcon if copied else Copy01Icon}
                                     strokeWidth={2}
                                     className={"size-4 "
-                                    + ("text-primary" if copied else "")}
+                                        + ("text-primary" if copied else "")}
                                 />
                             </Button>
                         }}

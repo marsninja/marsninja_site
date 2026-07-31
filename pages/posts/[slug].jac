@@ -1,4 +1,4 @@
-sv import from ...services.blog { get_post, Post }
+import from ...services.blog { get_post, Post }
 import from "@jac/runtime" { Link, useParams }
 import from ...components.MarkdownContent { MarkdownContent }
 import from ...components.ui.badge { Badge }
