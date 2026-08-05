@@ -30,8 +30,8 @@ def:pub page -> JsxPage {
     }
 
     d = doc;
-    <article className="py-12">
-        <h1 className="text-3xl sm:text-4xl font-semibold tracking-tight">
+    <article className="py-12 max-w-[40rem] mx-auto">
+        <h1 className="text-3xl sm:text-4xl font-semibold tracking-tight text-balance">
             {d.meta.title}
         </h1>
         <Separator className="my-8"/>

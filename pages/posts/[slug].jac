@@ -47,7 +47,7 @@ def:pub page -> JsxPage {
     }
 
     p = post;
-    <article className="py-12">
+    <article className="py-12 max-w-[40rem] mx-auto">
         <Link
             to="/"
             className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground transition-colors"
@@ -56,7 +56,7 @@ def:pub page -> JsxPage {
             All posts
         </Link>
         <h1
-            className="mt-6 text-3xl sm:text-4xl font-semibold tracking-tight leading-tight"
+            className="mt-6 text-3xl sm:text-4xl font-semibold tracking-tight leading-tight text-balance"
         >
             {p.meta.title}
         </h1>

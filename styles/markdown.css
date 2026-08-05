@@ -3,9 +3,27 @@
    Colors ride the shadcn CSS variables, so light/dark just works. */
 
 .markdown-body {
-    font-size: 1.0625rem;
+    font-size: 1.125rem;
     line-height: 1.75;
+    /* A touch softer than the UI foreground: long-form body text reads better
+       without full-contrast glare. Headings/strong stay at --foreground. */
+    color: oklch(0.27 0.006 286);
+}
+
+.dark .markdown-body {
+    color: oklch(0.87 0.006 286);
+}
+
+.markdown-body h2,
+.markdown-body h3,
+.markdown-body h4,
+.markdown-body strong {
     color: var(--foreground);
+}
+
+.markdown-body h2,
+.markdown-body h3 {
+    text-wrap: balance;
 }
 
 .markdown-body > :first-child {
@@ -34,7 +52,8 @@
 }
 
 .markdown-body p {
-    margin: 0 0 1.125rem;
+    margin: 0 0 1.25rem;
+    text-wrap: pretty;
 }
 
 .markdown-body a {
@@ -43,6 +62,12 @@
     text-decoration-color: color-mix(in oklch, var(--primary) 40%, transparent);
     text-underline-offset: 3px;
     transition: text-decoration-color 150ms;
+}
+
+/* The dark --primary is tuned for buttons/badges; as running-text links it
+   sits too dim against the near-black page. Lift links only. */
+.dark .markdown-body a {
+    color: oklch(0.68 0.15 262);
 }
 
 .markdown-body a:hover {
@@ -93,7 +118,9 @@
     border-radius: calc(var(--radius) - 2px);
 }
 
-/* Inline code */
+/* Inline code — allowed to wrap: nowrap forces long spans like
+   `by llm(model_name=..., temperature=...)` to drop to their own line
+   mid-paragraph (and overflow on phones). */
 .markdown-body :not(pre) > code {
     font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
     font-size: 0.875em;
@@ -101,7 +128,7 @@
     border: 1px solid var(--border);
     border-radius: calc(var(--radius) - 4px);
     padding: 0.125rem 0.375rem;
-    white-space: nowrap;
+    overflow-wrap: break-word;
 }
 
 /* Code blocks — both highlighted (.codehilite) and plain fences */
@@ -190,7 +217,8 @@
     color: var(--muted-foreground);
 }
 
-/* Tables */
+/* Tables — framed like the other wide elements (code, diagrams, video):
+   outer border + radius, horizontal rules only inside (no cell grid). */
 .markdown-body table {
     width: 100%;
     margin: 1.5rem 0;
@@ -198,6 +226,8 @@
     font-size: 0.9375rem;
     display: block;
     overflow-x: auto;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
 }
 
 .markdown-body th {
@@ -212,6 +242,29 @@
     padding: 0.5rem 1rem;
     border-bottom: 1px solid var(--border);
     vertical-align: top;
+}
+
+/* No double line where the last row meets the outer frame. */
+.markdown-body tbody tr:last-child td {
+    border-bottom: 0;
+}
+
+/* Prose sits in a ~40rem measure (see the article pages); code, tables and
+   diagrams break out into the surrounding gutters on wider screens so
+   listings keep ~80 columns without narrowing the reading column. */
+@media (min-width: 768px) {
+    .markdown-body > pre,
+    .markdown-body .codehilite,
+    .markdown-body .video-embed {
+        margin-left: -2.5rem;
+        margin-right: -2.5rem;
+    }
+
+    .markdown-body table {
+        margin-left: -2.5rem;
+        margin-right: -2.5rem;
+        width: calc(100% + 5rem);
+    }
 }
 
 /* ---------------------------------------------------------------------------

@@ -94,11 +94,19 @@ async def _draw_all(container: any) {
             block.setAttribute("data-mmd-src", src);
         }
         _seq["n"] += 1;
+        # Id must be unique across module copies, not just within this one:
+        # the client build duplicates this module (and mermaid) into the main
+        # bundle AND the route chunk, and both copies draw the same blocks. A
+        # bare counter collides ("mmd1" vs "mmd1") and one copy's
+        # removeExisting/removeTemp cleanup deletes the other's in-flight DOM.
+        rid = "mmd" + str(_seq["n"]) + "r"
+        + str(window.crypto.randomUUID()).split("-")[0];  # jac:ignore[E1030]
         try {
-            rendered: any = await mermaid.render("mmd" + str(_seq["n"]), src);  # jac:ignore[E1032]
+            rendered: any = await mermaid.render(rid, src);  # jac:ignore[E1032]
             block.innerHTML = rendered.svg;
             block.setAttribute("data-rendered", "ok");
-        } except Exception {
+        } except Exception as e {
+            console.error("mermaid render failed:", e);
             block.textContent = src;
             block.setAttribute("data-rendered", "error");
         }
